@@ -1,0 +1,51 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+	<header class="dashboard-header">
+		<h1>Ringkasan Rekrutmen</h1>
+		<p class="muted">Statistik singkat tentang kandidat, posisi, dan hasil seleksi</p>
+	</header>
+
+	<section class="stats-grid">
+		<div class="stat-card">
+			<div class="stat-value">{{ stats.total_candidates }}</div>
+			<div class="stat-label">Total Kandidat</div>
+		</div>
+
+		<div class="stat-card">
+			<div class="stat-value">{{ stats.total_positions }}</div>
+			<div class="stat-label">Total Posisi</div>
+		</div>
+
+		<div class="stat-card">
+			<div class="stat-value">{{ stats.candidates_with_position }}</div>
+			<div class="stat-label">Kandidat dengan Posisi</div>
+		</div>
+
+		<div class="stat-card">
+			<div class="stat-value">{{ stats.total_results }}</div>
+			<div class="stat-label">Total Hasil Seleksi</div>
+		</div>
+
+		<div class="stat-card accent">
+			<div class="stat-value">{{ stats.average_cf if stats.average_cf is not none else '—' }}</div>
+			<div class="stat-label">Rata‑rata CF</div>
+		</div>
+
+		<div class="stat-card">
+			<div class="stat-value">{{ stats.recommended_count }}</div>
+			<div class="stat-label">Direkomendasikan</div>
+		</div>
+
+		<div class="stat-card muted-card">
+			<div class="stat-value">{{ stats.not_recommended_count }}</div>
+			<div class="stat-label">Tidak Direkomendasikan</div>
+		</div>
+
+		<div class="stat-card">
+			<div class="stat-value">{{ stats.culture_fit_yes }}</div>
+			<div class="stat-label">Culture Fit (yes)</div>
+		</div>
+	</section>
+{% endblock %}
+

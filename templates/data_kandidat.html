@@ -1,0 +1,47 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="header-row">
+        <h1>Data Kandidat</h1>
+        <a class="btn" href="{{ url_for('add_candidate') }}">Tambah Kandidat</a>
+    </div>
+    <div class="card">
+    <div class="table-responsive">
+    <table>
+        <thead>
+            <tr>
+                <th>Nama</th>
+                <th>Pengalaman</th>
+                <th>Posisi Dilamar</th>
+                <th>Pendidikan</th>
+                <th>Keterampilan</th>
+                <th>Kesesuaian Budaya</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for candidate in candidates %}
+                <tr>
+                    <td>{{ candidate['name'] }}</td>
+                    <td>{{ candidate['experience'] }}</td>
+                    <td>{{ candidate['job_title'] or '—' }}</td>
+                    <td>{{ candidate['education'] }}</td>
+                    <td>{{ candidate['skills'] }}</td>
+                    <td>{{ candidate['culture_fit'] }}</td>
+                    <td class="table-actions">
+                        {% if candidate['job_position_id'] %}
+                            <a class="btn" href="{{ url_for('process_selection', candidate_id=candidate['id'], job_position_id=candidate['job_position_id']) }}">Proses Seleksi</a>
+                        {% else %}
+                            <span class="muted">—</span>
+                        {% endif %}
+                        <form class="inline" method="POST" action="{{ url_for('delete_candidate', candidate_id=candidate['id']) }}" onsubmit="return confirm('Hapus kandidat ini?');">
+                            <button class="btn danger" type="submit">Hapus</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+	<h1>Hasil Seleksi</h1>
+	<p>Ringkasan kandidat dan hasil seleksi terakhir.</p>
+
+	<div class="card">
+	<div class="table-responsive">
+	<table>
+		<thead>
+			<tr>
+				<th>Nama</th>
+				<th>Posisi Dilamar</th>
+				<th>Pengalaman</th>
+				<th>Pendidikan</th>
+				<th>Keterampilan</th>
+				<th>Culture Fit</th>
+				<th>CF</th>
+				<th>Rekomendasi</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for result in results %}
+				<tr>
+					<td>{{ result['name'] }}</td>
+					<td>{{ result['position_title'] }}</td>
+					<td>{{ result['experience'] }}</td>
+					<td>{{ result['education'] }}</td>
+					<td>{{ result['skills'] }}</td>
+					<td>{{ result['culture_fit'] }}</td>
+					<td>{{ result['cf'] }}</td>
+					<td>{{ result['recommendation'] }}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	</div>
+	</div>
+{% endblock %}
+

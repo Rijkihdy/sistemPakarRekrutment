@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <button id="hamburger" class="hamburger" aria-label="Toggle sidebar">☰</button>
+    <div class="sidebar" id="sidebar">
+        <div class="brand">
+            <div class="logo">RP</div>
+            <div>
+                <h2>Recruitment</h2>
+                <div class="muted">Admin</div>
+            </div>
+        </div>
+        <nav>
+            <ul>
+                <li><a class="nav-link" href="{{ url_for('index') }}"><span class="icon">🏠</span>Dashboard</a></li>
+                <li><a class="nav-link" href="{{ url_for('data_kandidat') }}"><span class="icon">👥</span>Data Kandidat</a></li>
+                <li><a class="nav-link" href="{{ url_for('data_posisi') }}"><span class="icon">📌</span>Data Posisi</a></li>
+                <!-- <li><a class="nav-link" href="{{ url_for('add_candidate') }}"><span class="icon">➕</span>Tambah Kandidat</a></li>
+                <li><a class="nav-link" href="{{ url_for('add_job_position') }}"><span class="icon">➕</span>Tambah Posisi</a></li> -->
+                <li><a class="nav-link" href="{{ url_for('results') }}"><span class="icon">📊</span>Hasil Seleksi</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="overlay" id="overlay"></div>
+
+    <div class="content" id="content">
+        <div class="card">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+    <script>
+        (function(){
+            const btn = document.getElementById('hamburger');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            function toggle(){
+                document.body.classList.toggle('sidebar-open');
+            }
+            btn.addEventListener('click', toggle);
+            overlay.addEventListener('click', toggle);
+            // Close sidebar on resize to desktop
+            window.addEventListener('resize', function(){
+                if(window.innerWidth>900){
+                    document.body.classList.remove('sidebar-open');
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

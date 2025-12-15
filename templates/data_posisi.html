@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="header-row">
+        <h1>Data Posisi Pekerjaan</h1>
+        <a class="btn" href="{{ url_for('add_job_position') }}">Tambah Posisi Pekerjaan</a>
+    </div>
+    <div class="card">
+    <div class="table-responsive">
+    <table>
+        <thead>
+            <tr>
+                <th>Judul Posisi</th>
+                <th>Deskripsi Pekerjaan</th>
+                <th>Kualifikasi</th>
+                <th>Keterampilan yang Dibutuhkan</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for job_position in job_positions %}
+                <tr>
+                    <td>{{ job_position['title'] }}</td>
+                    <td>{{ job_position['description'] }}</td>
+                    <td>{{ job_position['qualifications'] }}</td>
+                    <td>{{ job_position['required_skills'] }}</td>
+                    <td class="table-actions">
+                        <form class="inline" method="POST" action="{{ url_for('delete_job_position', job_position_id=job_position['id']) }}" onsubmit="return confirm('Hapus posisi pekerjaan ini?');">
+                            <button class="btn danger" type="submit">Hapus</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    </div>
+{% endblock %}

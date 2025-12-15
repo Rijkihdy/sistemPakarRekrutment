@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <h1>Tambah Posisi Pekerjaan</h1>
+    <form method="POST" class="card">
+        {{ form.hidden_tag() }}
+
+        <div class="form-grid">
+            <div class="full">
+                <div class="form-group">
+                    <label for="title">Judul Posisi</label>
+                    {{ form.title() }}
+                </div>
+            </div>
+
+            <div class="full">
+                <div class="form-group">
+                    <label for="description">Deskripsi Pekerjaan</label>
+                    {{ form.description() }}
+                </div>
+            </div>
+
+            <div>
+                <div class="form-group">
+                    <label for="qualifications">Kualifikasi</label>
+                    {{ form.qualifications() }}
+                </div>
+            </div>
+
+            <div>
+                <div class="form-group">
+                    <label for="required_skills">Keterampilan yang Dibutuhkan</label>
+                    {{ form.required_skills() }}
+                </div>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            {{ form.submit(class='btn') }}
+            <a class="btn secondary" href="{{ url_for('data_posisi') }}">Batal</a>
+        </div>
+    </form>
+{% endblock %}
