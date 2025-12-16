@@ -3,7 +3,9 @@
 {% block content %}
     <div class="header-row">
         <h1>Data Posisi Pekerjaan</h1>
+         {% if session['username'] == 'admin' %}
         <a class="btn" href="{{ url_for('add_job_position') }}">Tambah Posisi Pekerjaan</a>
+         {% endif %} 
     </div>
     <div class="card">
     <div class="table-responsive">
@@ -23,11 +25,13 @@
                     <td>{{ job_position['description'] }}</td>
                     <td>{{ job_position['qualifications'] }}</td>
                     <td>{{ job_position['required_skills'] }}</td>
+                     {% if session['username'] == 'admin' %}
                     <td class="table-actions">
                         <form class="inline" method="POST" action="{{ url_for('delete_job_position', job_position_id=job_position['id']) }}" onsubmit="return confirm('Hapus posisi pekerjaan ini?');">
                             <button class="btn danger" type="submit">Hapus</button>
                         </form>
                     </td>
+                     {% endif %} 
                 </tr>
             {% endfor %}
         </tbody>

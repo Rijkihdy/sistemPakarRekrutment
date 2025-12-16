@@ -3,31 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Admin</title>
+    <title>{{ session['username']|capitalize }} - Dashboard</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <button id="hamburger" class="hamburger" aria-label="Toggle sidebar">☰</button>
     <div class="sidebar" id="sidebar">
         <div class="brand">
             <div class="logo">RP</div>
             <div>
                 <h2>Recruitment</h2>
-                <div class="muted">Admin</div>
+
+                <!-- ROLE DISPLAY -->
+                {% if session['username'] == 'admin' %}
+                    <div class="muted">Admin</div>
+                {% else %}
+                    <div class="muted">User</div>
+                {% endif %}
+
+                <!-- SHOW USERNAME -->
+                <div class="muted" style="font-size:13px; margin-top:5px;">
+                    {{ session['username'] }}
+                </div>
             </div>
         </div>
+
         <nav>
             <ul>
-                <li><a class="nav-link" href="{{ url_for('index') }}"><span class="icon">🏠</span>Dashboard</a></li>
-                <li><a class="nav-link" href="{{ url_for('data_kandidat') }}"><span class="icon">👥</span>Data Kandidat</a></li>
-                <li><a class="nav-link" href="{{ url_for('data_posisi') }}"><span class="icon">📌</span>Data Posisi</a></li>
-                <!-- <li><a class="nav-link" href="{{ url_for('add_candidate') }}"><span class="icon">➕</span>Tambah Kandidat</a></li>
-                <li><a class="nav-link" href="{{ url_for('add_job_position') }}"><span class="icon">➕</span>Tambah Posisi</a></li> -->
-                <li><a class="nav-link" href="{{ url_for('results') }}"><span class="icon">📊</span>Hasil Seleksi</a></li>
+                <li>
+                    <a class="nav-link" href="{{ url_for('dashboard') }}">
+                        <span class="icon">🏠</span>Dashboard
+                    </a>
+                </li>
+
+                <li>
+                    <a class="nav-link" href="{{ url_for('data_kandidat') }}">
+                        <span class="icon">👥</span>Data Kandidat
+                    </a>
+                </li>
+
+                <!-- ONLY ADMIN CAN SEE THIS -->
+               
+                    <li>
+                        <a class="nav-link" href="{{ url_for('data_posisi') }}">
+                            <span class="icon">📌</span>Data Posisi
+                        </a>
+                    </li>
+               {% if session['username'] == 'admin' %}
+                    <li>
+                        <a class="nav-link" href="{{ url_for('results') }}">
+                            <span class="icon">📊</span>Hasil Seleksi
+                        </a>
+                    </li>
+                     {% endif %} 
+                    <li>
+                          <a class="nav-link" href="{{ url_for('logout') }}">
+                                <span class="icon">🚪</span> Logout
+                            </a>
+                    </li>
+                    
+                
             </ul>
         </nav>
     </div>
-    <div class="overlay" id="overlay"></div>
+            
 
     <div class="content" id="content">
         <div class="card">
@@ -35,23 +74,5 @@
             {% endblock %}
         </div>
     </div>
-    <script>
-        (function(){
-            const btn = document.getElementById('hamburger');
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('overlay');
-            function toggle(){
-                document.body.classList.toggle('sidebar-open');
-            }
-            btn.addEventListener('click', toggle);
-            overlay.addEventListener('click', toggle);
-            // Close sidebar on resize to desktop
-            window.addEventListener('resize', function(){
-                if(window.innerWidth>900){
-                    document.body.classList.remove('sidebar-open');
-                }
-            });
-        })();
-    </script>
 </body>
 </html>

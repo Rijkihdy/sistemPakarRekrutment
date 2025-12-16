@@ -61,10 +61,10 @@ conn = sqlite3.connect('recruitment_system.db')
 c = conn.cursor()
 
 # Menambah kolom job_position_id ke dalam tabel Candidates
-c.execute('ALTER TABLE Candidates ADD COLUMN job_position_id INTEGER')
+c.execute('ALTER TABLE Candidates ADD COLUMN owner TEXT;')
 
 # Commit perubahan dan tutup koneksi
 conn.commit()
 conn.close()
 
-print("Kolom job_position_id berhasil ditambahkan ke tabel Candidates.")
+print("Kolom owner berhasil ditambahkan ke tabel Candidates.")

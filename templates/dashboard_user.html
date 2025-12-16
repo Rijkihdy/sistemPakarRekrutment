@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<h1>Dashboard User</h1>
+
+{% if user_stats %}
+    <p><strong>CF:</strong> {{ user_stats.cf }}</p>
+    <p><strong>Rekomendasi:</strong> {{ user_stats.recommendation }}</p>
+{% else %}
+    <p>Kamu belum mengisi data kandidat.</p>
+{% endif %}
+
+{% endblock %}
